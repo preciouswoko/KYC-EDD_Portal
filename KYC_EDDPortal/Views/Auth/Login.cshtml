@@ -1,0 +1,174 @@
+﻿@model KYC_EDDPortal.ViewModels.LoginRequestModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Login" name="description" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/favicon.ico">
+
+    <!-- preloader css -->
+    <!-- Bootstrap Css -->
+    <link href="~/minia-template/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/minia-template/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/minia-template/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            z-index: -1;
+        }
+
+        .auth-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .auth-full-page-content {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .auth-logo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .auth-content {
+            padding: 30px;
+        }
+
+        .auth-pass-inputgroup {
+            position: relative;
+        }
+
+        #password-addon {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+        }
+
+        media (max-width: 768px) {
+            .auth-full-page-content {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <video autoplay muted loop>
+            <source src="~/assets/video/KeystoneVideo.mp4" type="video/mp4">
+        </video>
+        <!-- Your content goes here -->
+        <div class="content">
+            <div class="@*col-xxl-5 col-lg-4*@ col-md-12">
+                <div class="auth-full-page-content d-flex p-sm-5 p-4">
+                    <div class="w-100">
+                        <div class="d-flex flex-column h-100">
+                            <div class="mb-4 mb-md-5 text-center">
+                                <a href="@Url.Action("Login", "Auth")" class="d-block auth-logo">
+                                    <img src="~/minia-template/images/MicrosoftTeams-image.png" alt="" height="28">
+                                </a>
+                                <p> </p>
+                                <p><span class="logo-txt">KYC/EDD Portal</span></p>
+                            </div>
+                            <div class="auth-content my-auto">
+                                <div class="text-center">
+                                    <h5 class="mb-0">Welcome Back !</h5>
+                                    <p class="text-muted mt-2">Sign in to continue to this Portal.</p>
+                                </div>
+                                <form asp-controller="Auth" asp-action="Login" method="post">
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <strong>
+                                                <label asp-for="Username">Username:</label>
+                                                <input asp-for="Username" class="form-control" required placeholder="Enter Username" />
+                                                <span class="text-danger" asp-validation-for="Username"></span>
+                                            </strong>
+
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <strong>
+                                                <label asp-for="Password">Password:</label>
+                                                <div class="input-group auth-pass-inputgroup">
+                                                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter password" aria-label="Password" aria-describedby="password-addon">
+                                                    <button class="btn btn-light shadow-none ms-0" type="button" id="password-addon"><i class="mdi mdi-eye-outline"></i></button>
+                                                </div>
+                                            </strong>
+
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-group">
+                                            <strong>
+                                                <label asp-for="AccessToken">Access Token:</label>
+                                                <input asp-for="AccessToken" class="form-control" required placeholder="Enter AccessToken" />
+                                                <span class="text-danger" asp-validation-for="AccessToken"></span>
+                                            </strong>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Log In</button>
+                                    </div>
+                                    @{
+                                        if (ViewBag.Message != null)
+                                        {
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert" id="dynamic-alert">
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fa fa-exclamation-circle me-2"></i>
+                                                    <div>
+                                                        <h5 class="alert-heading">Warning!</h5>
+                                                        <p id="alert-message">@ViewBag.Message</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    }
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end auth full page content -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

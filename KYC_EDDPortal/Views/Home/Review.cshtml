@@ -1,0 +1,217 @@
+﻿@model List<KYC_EDDPortal.Models.AccountRequest>
+
+@{
+    ViewData["Title"] = "Review";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<h2>Review</h2>
+@if (Model.Count == 0)
+{
+    <p>No records to display.</p>
+}
+else
+{
+    <!-- Table to display records -->
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Account Number</th>
+                <th>Account Name</th>
+                <th>Customer Name</th>
+                <th>Account Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var record in Model)
+            {
+                <tr>
+                    <td>@record.AccountNumber</td>
+                    <td>@record.AccountName</td>
+                    <td>@record.CustomerName</td>
+                    <td>@record.AccountType</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal_@record.RequestId">
+                            View
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Modal for each record -->
+    @foreach (var record in Model)
+    {
+        <div class="modal fade" id="myModal_@record.RequestId" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">@*Details for Request ID: @record.RequestId*@</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>Account Number</th>
+                                    <td>@record.AccountNumber</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Name</th>
+                                    <td>@record.AccountName</td>
+                                </tr>
+                                <tr>
+                                    <th>Customer Name</th>
+                                    <td>@record.CustomerName</td>
+                                </tr>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <td>@record.CustomerID</td>
+                                </tr>
+                                <tr>
+                                    <th>Address</th>
+                                    <td>@record.Address</td>
+                                </tr>
+                                <tr>
+                                    <th>Branch Code</th>
+                                    <td>@record.BranchCode</td>
+                                </tr>
+                                <tr>
+                                    <th>Customer Type</th>
+                                    <td>@record.CustomerType</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Type</th>
+                                    <td>@record.AccountType</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Product</th>
+                                    <td>@record.AccountProduct</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Source Of Funds</th>
+                                    <td>@record.Sourceoffunds</td>
+                                </tr>
+                                <tr>
+                                    <th>Purpose Of Account</th>
+                                    <td>@record.PurposeOfAccount</td>
+                                </tr>
+                                <tr>
+                                    <th>Type of activity</th>
+                                    <td>@record.Typeofactivity</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Date Address Verified/th>
+                                    <td>@record.DateOfAddress</td>
+                                </tr>
+                                <tr>
+                                    <th>Address Verify</th>
+                                    <td>@record.AddressVerified</td>
+                                </tr>
+                                <tr>
+                                    <th>Anticipated Volume</th>
+                                    <td>@record.AnticipatedVolume</td>
+                                </tr>
+
+                                @if (record.Nationality != null)
+                                {
+                                    <p><h4>Individual Account Details</h4></p>
+
+                                    <table class="table table-bordered">
+                                        <caption class="text-center"><h4>Individual Account Details</h4></caption>
+                                        <tbody>
+                                            <tr>
+                                                <th>Date of Birth</th>
+                                                <td>@record.DateOfBirth</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Occupation</th>
+                                                <td>@record.Occupation</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Employer</th>
+                                                <td>@record.Employer</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Nationality</th>
+                                                <td>@record.Nationality</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Identification Type</th>
+                                                <td>@record.IdentificationType</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Identification Number</th>
+                                                <td>@record.IdentificationNumber</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Identification Expiry Date</th>
+                                                <td>@record.IdentificationExpiryDate</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                }
+
+                                @if (record.RCNo != null)
+                                {
+                                    <p> <h4>Corporate Account Details</h4></p>
+                                    <table class="table table-bordered">
+                                        <caption class="text-center"><h4>Corporate Account Details</h4></caption>
+                                        <tbody>
+                                            <tr>
+                                                <th>RC Number</th>
+                                                <td>@record.RCNo</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Nature of Business</th>
+                                                <td>@record.NatureOfBusiness</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                }
+
+
+                            </tbody>
+                        </table>
+
+                        <!-- Form for submitting comment and approval/rejection -->
+                        <form asp-action="Review" asp-route-requestId="@record.RequestId" method="post">
+                            <div class="form-group">
+                                <label for="approvalStatus">Action:</label>
+                                <select class="form-control" id="approvalStatus" name="approvalStatus">
+                                    <option value="">-- Select Status --</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Rejected">Rejected</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <textarea class="form-control" id="comment" name="comment" required></textarea>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+
+<!-- JavaScript code -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="~/assets/bundles/libscripts.bundle.js"></script>
+<script src="~/assets/bundles/vendorscripts.bundle.js"></script>
+

@@ -1,0 +1,6 @@
+﻿2023-11-18 08:49:03.315 +01:00 [Information] Starting application
+2023-11-18 08:49:13.135 +01:00 [Information] User profile is available. Using '"C:\Users\pwoko\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-11-18 08:50:55.636 +01:00 [Information] Starting application
+2023-11-18 08:50:55.949 +01:00 [Information] User profile is available. Using '"C:\Users\pwoko\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
+2023-11-18 08:50:59.024 +01:00 [Information] Starting application
+2023-11-18 08:51:00.917 +01:00 [Information] User profile is available. Using '"C:\Users\pwoko\AppData\Local\ASP.NET\DataProtection-Keys"' as key repository and Windows DPAPI to encrypt keys at rest.
